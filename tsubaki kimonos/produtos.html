@@ -1,0 +1,140 @@
+<!--ESTRUTURA HTML -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tsubaki kimonos</title>
+   <link rel="stylesheet" href="produtos.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,800;1,14..32,800&display=swap" rel="stylesheet">
+</head>
+
+
+<!--NAV BAR-->
+<nav>
+    <header>
+      <header class="header">
+    <body>
+      <header>
+      <div class="logo"> 
+      <img src="/imagens/logo.png" class="logo"> 
+       <h1>TSUBAKI</h1> 
+      </div>
+</nav>
+<body>
+    
+
+
+
+<!--BOTÃO TELA PRINCIPAL-->
+        <div class="container">
+         
+            <div class="product">
+                <img src="imagens/kimono1.webp" alt="Produto 1">
+                <h2>KIMONO PRETO LISO</h2>
+                <p>R$ 390,00</p>
+                <button onclick="window.location.href='produto.html'">Ver Produtos</button>
+            </div>
+            
+               
+<!-- RODAPÉ DA PÁGINA-->
+<div class="footer">
+        <p> tsubaki kimonos. Todos os direitos reservados.</p>
+    </div>
+
+
+     <!-- javascript -->
+    <script>
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let total = parseFloat(localStorage.getItem('total')) || 0;
+
+      function addToCart(productName, productPrice) {
+          const existingItem = cart.find(item => item.name === productName);
+          if (existingItem) {
+              existingItem.quantity += 1;
+          } else {
+              cart.push({ name: productName, price: productPrice, quantity: 1 });
+          }
+          total += productPrice;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          localStorage.setItem('total', total.toFixed(2));
+          renderCart();
+      }
+
+      function removeFromCart(productName) {
+          const itemIndex = cart.findIndex(item => item.name === productName);
+          if (itemIndex !== -1) {
+              total -= cart[itemIndex].price * cart[itemIndex].quantity;
+              cart.splice(itemIndex, 1);
+              localStorage.setItem('cart', JSON.stringify(cart));
+              localStorage.setItem('total', total.toFixed(2));
+              renderCart();
+          }
+      }
+
+      function updateQuantity(productName, quantity) {
+          const item = cart.find(item => item.name === productName);
+          if (item) {
+              total += (quantity - item.quantity) * item.price;
+              item.quantity = parseInt(quantity, 10);
+              localStorage.setItem('cart', JSON.stringify(cart));
+              localStorage.setItem('total', total.toFixed(2));
+              renderCart();
+          }
+      }
+
+      function renderCart() {
+          const cartItems = document.getElementById('cart-items');
+          const cartTotal = document.getElementById('cart-total');
+          const cartCount = document.getElementById('cart-count');
+          cartItems.innerHTML = '';
+          let itemCount = 0;
+          cart.forEach(item => {
+              itemCount += item.quantity;
+              const li = document.createElement('li');
+              li.innerHTML = `
+                  <span>${item.name} - R$ ${item.price.toFixed(2)} x ${item.quantity}</span>
+                  <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity('${item.name}', this.value)">
+                  <button onclick="removeFromCart('${item.name}')">Remover</button>
+              `;
+              cartItems.appendChild(li);
+          });
+          cartTotal.textContent = total.toFixed(2);
+          cartCount.textContent = itemCount;
+          if (itemCount > 0) {
+              cartCount.style.display = 'block';
+          } else {
+              cartCount.style.display = 'none';
+          }
+      }
+
+      function openCartModal() {
+          document.getElementById('cartModal').style.display = 'block';
+      }
+
+      function closeCartModal() {
+          document.getElementById('cartModal').style.display = 'none';
+      }
+
+      function showHome() {
+          document.getElementById('home').style.display = 'flex';
+          document.getElementById('main').style.display = 'none';
+      }
+
+      function showCatalog() {
+          document.getElementById('home').style.display = 'none';
+          document.getElementById('main').style.display = 'block';
+      }
+
+      document.addEventListener('DOMContentLoaded', renderCart);
+      window.onclick = function(event) {
+          if (event.target == document.getElementById('cartModal')) {
+              closeCartModal();
+          }
+      }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,84 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      height: 100vh;
+      gap: 5px;
+    }
+
+    .item {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      color: white;
+    }
+
+
+    .overlay h2 {
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .overlay a {
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .kimonos {
+      grid-row: 1 / span 2;
+      background-color: #333;
+      background-image: url('https://via.placeholder.com/600x800?text=Kimonos'); /* Troque por sua imagem */
+    }
+
+    .rashguards {
+      background-color: #555;
+      background-image: url('https://via.placeholder.com/400x400?text=Rash+Guards'); /* Troque por sua imagem */
+    }
+
+    .acessorios {
+      background-color: #777;
+      background-image: url('https://via.placeholder.com/400x400?text=Acessorios'); /* Troque por sua imagem */
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="item kimonos">
+      <div class="overlay">
+        <h2>Todos os Kimonos</h2>
+        <a href="#">Ver Produtos ></a>
+      </div>
+    </div>
+    <div class="item rashguards">
+      <div class="overlay">
+        <h2>Rash Guards e Bermudas</h2>
+        <a href="#">Ver Produtos ></a>
+      </div>
+    </div>
+    <div class="item acessorios">
+      <div class="overlay">
+        <h2>Roupas e Acessórios</h2>
+        <a href="#">Ver Produtos ></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
